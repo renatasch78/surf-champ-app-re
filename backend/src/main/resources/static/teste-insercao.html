@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Inserção de Vídeo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .spinner-border {
+            display: none;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-4">Teste de Inserção de Vídeo</h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Inserir Vídeo de Teste</h5>
+                <p class="card-text">Clique no botão abaixo para criar um registro de vídeo de teste no banco de dados.</p>
+                
+                <button id="btnTestar" class="btn btn-primary">
+                    Testar Inserção
+                    <span id="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+                
+                <div id="resultado" class="mt-3"></div>
+            </div>
+        </div>
+        
+        <div id="detalhes" class="mt-4" style="display: none;">
+            <h4>Detalhes do Vídeo Inserido:</h4>
+            <pre id="detalhes-conteudo" class="bg-light p-3 rounded"></pre>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btnTestar').addEventListener('click', async function() {
+            const btn = this;
+            const resultadoDiv = document.getElementById('resultado');
+            const spinner = document.getElementById('spinner');
+            const detalhesDiv = document.getElementById('detalhes');
+            const detalhesConteudo = document.getElementById('detalhes-conteudo');
+            
+            // Resetar estado
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            resultadoDiv.style.display = 'none';
+            detalhesDiv.style.display = 'none';
+            
+            try {
+                // Fazer a requisição para o endpoint de teste
+                const response = await fetch('http://localhost:8080/api/videos/test-video', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Sucesso
+                    resultadoDiv.className = 'alert alert-success';
+                    resultadoDiv.innerHTML = `
+                        <strong>Sucesso!</strong> Vídeo de teste criado com sucesso.
+                        <ul class="mt-2 mb-0">
+                            <li>ID: ${data.videoId}</li>
+                            <li>Arquivo: ${data.filename}</li>
+                            <li>Status: ${data.status}</li>
+                        </ul>
+                    `;
+                    
+                    // Buscar detalhes completos do vídeo
+                    try {
+                        const detalhesResponse = await fetch(`http://localhost:8080/api/videos/${data.videoId}?username=test_user`);
+                        if (detalhesResponse.ok) {
+                            const detalhes = await detalhesResponse.json();
+                            detalhesConteudo.textContent = JSON.stringify(detalhes, null, 2);
+                            detalhesDiv.style.display = 'block';
+                        }
+                    } catch (erro) {
+                        console.error('Erro ao buscar detalhes:', erro);
+                    }
+                } else {
+                    // Erro
+                    resultadoDiv.className = 'alert alert-danger';
+                    resultadoDiv.textContent = `Erro: ${data.error || 'Falha ao criar vídeo de teste'}`;
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                resultadoDiv.className = 'alert alert-danger';
+                resultadoDiv.textContent = `Erro na requisição: ${error.message}`;
+            } finally {
+                resultadoDiv.style.display = 'block';
+                btn.disabled = false;
+                spinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

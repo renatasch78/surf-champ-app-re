@@ -1,0 +1,31 @@
+hazelcast:
+  network:
+    join:
+      multicast:
+        enabled: false
+      tcp-ip:
+        enabled: false
+    port:
+      port: 5701
+      port-count: 100
+      port-auto-increment: true
+    rest-api:
+      enabled: true
+      endpoint-groups:
+        HEALTH_CHECK:
+          enabled: true
+  cluster-name: surf-champ
+  management-center:
+    enabled: false
+  map:
+    rate-limit-bucket:
+      backup-count: 1
+      async-backup-count: 0
+      time-to-live-seconds: 0
+      max-idle-seconds: 0
+      eviction:
+        size: 10000
+        max-size-policy: PER_NODE
+        eviction-policy: LRU
+      read-backup-data: false
+      statistics-enabled: true
