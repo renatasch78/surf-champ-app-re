@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9cd949a-01ea-40a2-8ea7-a2911de818dd" name="Changes" comment="Cadastro de surfistas validação dos campos obrigatrios e seção de login">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/RateLimitConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/RateLimitConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/WebConfig.java" afterDir="false" />
-    </list>
+    <list default="true" id="a9cd949a-01ea-40a2-8ea7-a2911de818dd" name="Changes" comment="Redis só com profile Local" />
     <list id="87d2102c-d3bc-4176-9317-1560cdaaabc1" name="Ignore" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760702127969</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Redis só com profile Local">
+      <option name="closed" value="true" />
+      <created>1777489011851</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1777489011852</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -249,7 +253,8 @@
     <MESSAGE value="Comparativo de ondas primeira fase" />
     <MESSAGE value="Cadastro de surfistas" />
     <MESSAGE value="Cadastro de surfistas validação dos campos obrigatrios e seção de login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cadastro de surfistas validação dos campos obrigatrios e seção de login" />
+    <MESSAGE value="Redis só com profile Local" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redis só com profile Local" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
