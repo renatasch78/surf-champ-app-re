@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a9cd949a-01ea-40a2-8ea7-a2911de818dd" name="Changes" comment="Cadastro de surfistas validação dos campos obrigatrios e seção de login">
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/RateLimitConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/RateLimitConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/surfchamp/config/WebConfig.java" afterDir="false" />
+    </list>
+    <list id="87d2102c-d3bc-4176-9317-1560cdaaabc1" name="Ignore" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DanielRotnitzky&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DanielRotnitzky/surf-champ-app.git&quot;,
+    &quot;accountId&quot;: &quot;c5d96eae-a03f-44bc-90ae-b5013687b82f&quot;
+  }
+}</component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="336JT1jWLmdI7q9zTPOrHIEuqBG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.SurfChampApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.surf-champ [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.surf-champ [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.surf-champ [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Projetos/eoms/trunk/pom.xml&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.41494253&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;File.Encoding&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Examples\surf_champ_app\backend\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="SurfChampApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.surfchamp.SurfChampApplication" />
+      <module name="surf-champ" />
+      <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=local --aws.s3.bucket.name=local-bucket" />
+      <shortenClasspath name="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <shortenClasspath name="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SurfChampApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Daniel_2\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9cd949a-01ea-40a2-8ea7-a2911de818dd" name="Changes" comment="" />
+      <created>1758631592444</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758631592444</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Iniciando tela principal">
+      <option name="closed" value="true" />
+      <created>1758745087652</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758745087652</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Ajuste na no processamento do video">
+      <option name="closed" value="true" />
+      <created>1759348423905</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1759348423905</updated>
+    </task>
+    <task id="LOCAL-00003" summary="para o video">
+      <option name="closed" value="true" />
+      <created>1759954374067</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1759954374067</updated>
+    </task>
+    <task id="LOCAL-00004" summary="botão de exclusão">
+      <option name="closed" value="true" />
+      <created>1759954536356</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1759954536356</updated>
+    </task>
+    <task id="LOCAL-00005" summary="botão de exclusão">
+      <option name="closed" value="true" />
+      <created>1759956225630</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1759956225630</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Ajuste na Miniatura">
+      <option name="closed" value="true" />
+      <created>1760017869849</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760017869849</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Reprodução do video">
+      <option name="closed" value="true" />
+      <created>1760030110091</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1760030110091</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Ajutes na tela de analise">
+      <option name="closed" value="true" />
+      <created>1760039797104</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1760039797104</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Sincronização das notas nas telas">
+      <option name="closed" value="true" />
+      <created>1760096950772</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1760096950772</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Inverter posição da analise e do video">
+      <option name="closed" value="true" />
+      <created>1760097476590</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1760097476590</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Comparativo de ondas primeira fase">
+      <option name="closed" value="true" />
+      <created>1760121286900</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1760121286900</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Cadastro de surfistas">
+      <option name="closed" value="true" />
+      <created>1760634899282</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1760634899282</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Cadastro de surfistas validação dos campos obrigatrios e seção de login">
+      <option name="closed" value="true" />
+      <created>1760702127969</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1760702127969</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Iniciando tela principal" />
+    <MESSAGE value="Ajuste na no processamento do video" />
+    <MESSAGE value="para o video" />
+    <MESSAGE value="botão de exclusão" />
+    <MESSAGE value="Ajuste na Miniatura" />
+    <MESSAGE value="Reprodução do video" />
+    <MESSAGE value="Ajutes na tela de analise" />
+    <MESSAGE value="Sincronização das notas nas telas" />
+    <MESSAGE value="Inverter posição da analise e do video" />
+    <MESSAGE value="Comparativo de ondas primeira fase" />
+    <MESSAGE value="Cadastro de surfistas" />
+    <MESSAGE value="Cadastro de surfistas validação dos campos obrigatrios e seção de login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cadastro de surfistas validação dos campos obrigatrios e seção de login" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/surfchamp/service/VideoService.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/surfchamp/service/VideoService.java</url>
+          <line>113</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="filePath.toUri()" language="JAVA" />
+        <watch expression="file.getOriginalFilename()" />
+        <watch expression="mediaType.getMimeType()" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
