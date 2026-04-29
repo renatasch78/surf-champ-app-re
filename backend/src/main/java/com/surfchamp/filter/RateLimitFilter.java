@@ -6,6 +6,7 @@ import io.github.bucket4j.BucketConfiguration;
 import io.github.bucket4j.ConsumptionProbe;
 import io.github.bucket4j.distributed.proxy.ProxyManager;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,6 +25,7 @@ import java.util.function.Supplier;
  * Uses Bucket4j for rate limiting with a token bucket algorithm.
  */
 @Component
+@Profile("local")
 public class RateLimitFilter extends OncePerRequestFilter {
 
     private static final String[] PROTECTED_PATHS = {"/api/videos/upload"};
