@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@Profile("local")
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
+    @Profile("local")
     public FilterRegistrationBean<RateLimitFilter> rateLimitFilterRegistration(
             ProxyManager<String> proxyManager,
             @Value("${rate.limit.video.upload:3}") int rateLimit,
