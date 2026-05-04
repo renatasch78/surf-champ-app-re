@@ -31,8 +31,8 @@ public class RateLimitConfig {
     
     private static final Logger logger = LoggerFactory.getLogger(RateLimitConfig.class);
 
-    @Value("${spring.data.redis.host:localhost}")
-    private String redisHost;
+    @Value("${spring.data.redis.url}")
+    private String redisUrl;
 
     @Value("${spring.data.redis.port:6379}")
     private int redisPort;
@@ -45,18 +45,8 @@ public class RateLimitConfig {
 
     @Bean(destroyMethod = "shutdown")
     public RedisClient redisClient() {
-        try {
-            logger.info("Creating Redis client for host: {} and port: {}", redisHost, redisPort);
-            RedisURI redisURI = RedisURI.builder()
-                    .withHost(redisHost)
-                    .withPort(redisPort)
-                    .withTimeout(Duration.ofSeconds(10))
-                    .build();
-            return RedisClient.create(redisURI);
-        } catch (Exception e) {
-            logger.error("Failed to create Redis client", e);
-            throw new IllegalStateException("Failed to create Redis client", e);
-        }
+        logger.info("Connecting to Redis using URL: {}", redisUrl);
+        return RedisClient.create(redisUrl);
     }
 
     @Bean(destroyMethod = "close")
