@@ -5,15 +5,13 @@ import {
   Typography, 
   Paper, 
   LinearProgress, 
-  Alert, 
   TextField, 
   CircularProgress, 
   Autocomplete,
-  Chip,
   InputAdornment,
   IconButton
 } from '@mui/material';
-import { CloudUpload, AddCircleOutline, Clear } from '@mui/icons-material';
+import { CloudUpload, Clear } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
@@ -41,7 +39,6 @@ const UploadVideo = () => {
   const [surfers, setSurfers] = useState([]);
   const [surferInput, setSurferInput] = useState('');
   const [isLoadingSurfers, setIsLoadingSurfers] = useState(false);
-  const [loading, setLoading] = useState(false);
   const { currentUser, isAuthenticated } = useAuth();
   const token = currentUser?.token; // Obtém o token do usuário atual
 
@@ -106,8 +103,6 @@ const UploadVideo = () => {
   };
 
   const handleFileChange = (event) => {
-    if (loading) return;
-
     if (!isAuthenticated) {
       setError('Você precisa estar logado para enviar vídeos.');
       window.location.href = '/login';
@@ -368,7 +363,7 @@ const UploadVideo = () => {
       
       setUploadProgress(0);
     }
-  }, [selectedFile, token, surferName]);
+  }, [selectedFile, token, surferName, isAuthenticated, surfers, currentUser?.username]);
 
   // Se chegou até aqui, o usuário está autenticado e pode ver o formulário
   return (
@@ -381,6 +376,18 @@ const UploadVideo = () => {
         <Typography variant="body1" paragraph>
           Faça upload de seus melhores momentos no surf para análise e compartilhamento.
         </Typography>
+
+        {error && (
+          <Typography color="error" sx={{ mb: 2 }}>
+            {error}
+          </Typography>
+        )}
+
+        {success && (
+          <Typography color="success.main" sx={{ mb: 2 }}>
+            {success}
+          </Typography>
+        )}
         
         <Autocomplete
           id="surfer-select"

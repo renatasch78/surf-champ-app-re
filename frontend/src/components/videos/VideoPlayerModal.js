@@ -5,7 +5,6 @@ import {
   Typography,
   Paper,
   IconButton,
-  Divider,
   Chip,
   LinearProgress,
   Grid,
@@ -71,22 +70,6 @@ const getMediaErrorMessage = (code) => {
 const isProtectedStreamUrl = (resolvedUrl) => (
   typeof resolvedUrl === 'string' && resolvedUrl.includes('/api/videos/stream/')
 );
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '80%',
-  maxWidth: '1200px',
-  maxHeight: '90vh',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius: 2,
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-};
 
 const AnalysisMetric = ({ label, value, compareValue = null, max = 10, isComparison = false }) => {
   const getBarColor = (val, compareVal = null) => {
@@ -368,8 +351,6 @@ const VideoPlayerModal = ({ open, onClose, video: propVideo, allVideos = [] }) =
   const renderAnalysis = (video, compareVideo = null) => {
     const analysis = getWaveAnalysis(video.id);
     const compareAnalysis = compareVideo ? getWaveAnalysis(compareVideo.id) : null;
-    const overallScore = getOverallScore(video);
-    const compareScore = compareVideo ? getOverallScore(compareVideo) : null;
     
     return (
       <Box>
