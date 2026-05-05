@@ -1,6 +1,5 @@
 package com.surfchamp.controller;
 
-import com.surfchamp.model.VideoResult;
 import com.surfchamp.repository.VideoResultRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

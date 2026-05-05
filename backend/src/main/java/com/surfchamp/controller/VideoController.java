@@ -5,7 +5,6 @@ import com.surfchamp.exception.FileValidationException;
 import com.surfchamp.model.VideoResult;
 import com.surfchamp.model.enums.SupportedMediaType;
 import com.surfchamp.service.FileValidationService;
-import com.surfchamp.service.S3StorageService;
 import com.surfchamp.service.StorageService;
 import com.surfchamp.service.VideoService;
 import org.slf4j.Logger;
