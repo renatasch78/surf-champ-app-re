@@ -1,14 +1,15 @@
 package com.surfchamp.security;
 
 import com.surfchamp.filter.RequestResponseLoggingFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,11 +27,14 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
 
+    @Value("${app.cors.allowed-origin-patterns:http://localhost:3000,http://localhost:3001,http://localhost:4200}")
+    private String[] allowedOriginPatterns;
+
     public SecurityConfig(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
-    
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(jwtUtil, userDetailsService);
@@ -48,38 +52,30 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(requestResponseLoggingFilter, JwtAuthenticationFilter.class)
             .authorizeHttpRequests(auth -> auth
-                // Permite requisiÃ§Ãµes OPTIONS (prÃ©-voo CORS) sem autenticaÃ§Ã£o
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                
-                // URLs pÃºblicas que nÃ£o requerem autenticaÃ§Ã£o
                 .requestMatchers(
-                    "/api/auth/**", 
-                    "/v3/api-docs/**", 
-                    "/swagger-ui/**", 
+                    "/api/auth/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/error",
                     "/ws/**",
                     "/api/videos/stream/**"
                 ).permitAll()
-                
-                // Todas as outras requisiÃ§Ãµes exigem autenticaÃ§Ã£o
                 .anyRequest().authenticated()
             );
 
         return http.build();
     }
-    
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Permite requisiÃ§Ãµes do frontend
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001"));
-        // MÃ©todos HTTP permitidos
+        configuration.setAllowedOriginPatterns(Arrays.asList(allowedOriginPatterns));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        // CabeÃ§alhos permitidos
         configuration.setAllowedHeaders(Arrays.asList(
-            "Authorization", 
-            "Content-Type", 
+            "Authorization",
+            "Content-Type",
             "Content-Disposition",
             "X-Requested-With",
             "Accept",
@@ -87,7 +83,6 @@ public class SecurityConfig {
             "Access-Control-Request-Method",
             "Access-Control-Request-Headers"
         ));
-        // CabeÃ§alhos expostos para o frontend
         configuration.setExposedHeaders(Arrays.asList(
             "Authorization",
             "Content-Disposition",
@@ -96,12 +91,9 @@ public class SecurityConfig {
             "X-RateLimit-Reset",
             "Retry-After"
         ));
-        // Permite o envio de credenciais (cookies, cabeÃ§alhos de autenticaÃ§Ã£o)
         configuration.setAllowCredentials(true);
-        // Tempo de cache do CORS em segundos
         configuration.setMaxAge(3600L);
-        
-        // Aplica a configuraÃ§Ã£o a todas as rotas
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -112,5 +104,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
-
