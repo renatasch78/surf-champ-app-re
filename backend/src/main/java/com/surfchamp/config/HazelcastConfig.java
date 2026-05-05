@@ -2,6 +2,7 @@ package com.surfchamp.config;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.config.MapConfig;
+import com.hazelcast.config.YamlConfigBuilder;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -23,7 +24,12 @@ public class HazelcastConfig {
     @Bean
     @ConditionalOnMissingBean
     public Config hazelcastConfiguration() {
-        Config config = new Config();
+        Config config;
+        try {
+            config = new YamlConfigBuilder("hazelcast.yaml").build();
+        } catch (Exception e) {
+            config = new Config();
+        }
         config.setInstanceName(hazelcastProperties.getInstanceName());
         
         // Configure the map for rate limiting

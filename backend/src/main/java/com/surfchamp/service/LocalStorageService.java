@@ -75,7 +75,6 @@ public class LocalStorageService implements StorageService {
         
         try {
             // Remove a barra inicial do caminho do arquivo, se existir
-            String originalFileKey = fileKey;
             if (fileKey.startsWith("/")) {
                 fileKey = fileKey.substring(1);
                 logger.debug("Removida barra inicial. Novo fileKey: '{}'", fileKey);
