@@ -1,5 +1,4 @@
-import React, { useState, useEffect, forwardRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -11,20 +10,11 @@ import {
   Grid,
   Typography,
   Paper,
-  Divider,
   IconButton,
-  FormControlLabel,
-  Switch,
-  FormGroup,
   Chip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   InputAdornment,
   Alert,
-  CircularProgress,
-  OutlinedInput
+  CircularProgress
 } from '@mui/material';
 import { Visibility, VisibilityOff, Add as AddIcon } from '@mui/icons-material';
 import { format } from 'date-fns';
@@ -35,48 +25,6 @@ import * as yup from 'yup';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-// Define Surfer type if needed
-const Surfer = {
-  id: null,
-  name: '',
-  email: '',
-  phoneNumber: '',
-  birthDate: null,
-  // Add other Surfer properties as needed
-  address: {
-    street: '',
-    number: '',
-    neighborhood: '',
-    city: '',
-    state: '',
-    zipCode: ''
-  },
-  emergencyContact: {
-    name: '',
-    phone: '',
-    relationship: ''
-  }
-};
-// Text mask component for phone number
-const PhoneMaskCustom = forwardRef((props, ref) => {
-  const { inputRef, ...other } = props;
-  return (
-    <TextField
-      {...other}
-      inputRef={inputRef}
-      variant="outlined"
-      fullWidth
-    />
-  );
-});
-
-PhoneMaskCustom.propTypes = {
-  inputRef: PropTypes.oneOfType([
-    PropTypes.func, 
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-  ]),
-};
 
 const stances = [
   { value: 'REGULAR', label: 'Regular (pé esquerdo à frente)' },
@@ -201,8 +149,6 @@ const SurferForm = ({ surfer, onSave, onCancel, loading, error }) => {
       address: surfer?.address || {}
     }
   });
-
-  const watchedValues = watch();
 
   const handleAddSponsor = () => {
     if (sponsorInput.trim() && !sponsors.includes(sponsorInput)) {

@@ -14,7 +14,6 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Tooltip,
   TextField,
   InputAdornment,
   MenuItem,
@@ -36,12 +35,10 @@ import {
   Delete as DeleteIcon,
   MoreVert as MoreVertIcon,
   Search as SearchIcon,
-  Person as PersonIcon,
-  FilterList as FilterListIcon
+  Person as PersonIcon
 } from '@mui/icons-material';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { useNavigate } from 'react-router-dom';
 import SurferForm from './SurferForm';
 import surferService from '../../services/surferService';
 
@@ -102,7 +99,6 @@ const SurferList = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedSurferId, setSelectedSurferId] = useState(null);
-  const navigate = useNavigate();
 
   const loadSurfers = async () => {
     try {
@@ -292,6 +288,11 @@ const SurferList = () => {
   return (
     <Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
+        {error && (
+          <Typography color="error" sx={{ px: 2, pt: 2 }}>
+            {error}
+          </Typography>
+        )}
         <Toolbar sx={{ pl: { sm: 2 }, pr: { xs: 1, sm: 1 } }}>
           <Typography
             sx={{ flex: '1 1 100%' }}

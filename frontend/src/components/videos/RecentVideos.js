@@ -20,8 +20,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button,
-  Avatar
+  Button
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
@@ -78,7 +77,7 @@ const RecentVideos = () => {
     
     setIsDeleting(true);
     try {
-      const response = await videoService.deleteVideo(videoToDelete.id, currentUser.username);
+      await videoService.deleteVideo(videoToDelete.id, currentUser.username);
       
       // Atualiza a lista de vídeos localmente primeiro para uma resposta mais rápida
       setVideos(prevVideos => prevVideos.filter(video => video.id !== videoToDelete.id));
