@@ -1,0 +1,50 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# FRONTEND / NODE
+node_modules/
+frontend/node_modules/
+/.pnp
+.pnp.js
+dist/
+.env
+.next/
+.cache/
+
+
+# testing
+/coverage
+
+# production
+/build
+/uploads
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# BACKEND
+backend/node_modules/
+backend/build/
+backend/dist/
+backend/target/
+backend/*.log
+backend/.env
+backend/.idea/
+backend/.vscode/
+
+
+# BACKEND PROXY
+backend_proxy/node_modules/
+backend_proxy/build/
+backend_proxy/dist/
+
+
+
