@@ -207,7 +207,7 @@ const UploadVideo = () => {
     // Se nÃ£o encontrou na lista, valida como novo surfista
     if (!existingSurfer) {
       // Verifica se o nome contÃ©m apenas letras, espaÃ§os e caracteres acentuados
-      const nameRegex = /^[a-zA-ZÃ€-Ã¿\s]+$/;
+      const nameRegex = /^[A-Za-z\u00C0-\u00FF\s]+$/;
       if (!nameRegex.test(trimmedSurferName)) {
         const errorMsg = 'O nome do surfista deve conter apenas letras e espaÃ§os.';
         console.error(errorMsg);
