@@ -1,4 +1,4 @@
-package com.surfchamp.security;
+﻿package com.surfchamp.security;
 
 import com.surfchamp.filter.RequestResponseLoggingFilter;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,22 +72,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(allowedOriginPatterns));
-<<<<<<< HEAD
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-=======
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList(
-            "Authorization",
-            "Content-Type",
-            "Content-Disposition",
-            "X-Requested-With",
-            "Accept",
-            "Origin",
-            "Access-Control-Request-Method",
-            "Access-Control-Request-Headers"
-        ));
->>>>>>> vercel
         configuration.setExposedHeaders(Arrays.asList(
             "Authorization",
             "Content-Disposition",
