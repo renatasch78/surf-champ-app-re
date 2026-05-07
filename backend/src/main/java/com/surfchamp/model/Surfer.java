@@ -1,6 +1,5 @@
 package com.surfchamp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.surfchamp.model.enums.Stance;
 import com.surfchamp.model.enums.SurferLevel;
 import lombok.Setter;

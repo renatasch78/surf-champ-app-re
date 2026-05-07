@@ -5,8 +5,6 @@ import com.surfchamp.model.User;
 import com.surfchamp.repository.UserRepository;
 import com.surfchamp.security.JwtUtil;
 import com.surfchamp.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,7 +17,6 @@ import java.util.Map;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;

@@ -14,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${app.cors.allowed-origin-patterns:http://localhost:3000,http://localhost:3001,http://localhost:4200}")
+    private String[] allowedOriginPatterns;
+
     @Bean
     @Profile("local")
     public FilterRegistrationBean<RateLimitFilter> rateLimitFilterRegistration(
@@ -33,11 +36,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins(
-                "http://localhost:3000",
-                "http://localhost:3001",
-                "http://localhost:4200"
-            )
+            .allowedOriginPatterns(allowedOriginPatterns)
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
             .allowedHeaders("*")
             .exposedHeaders("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset", "Retry-After", "Authorization")

@@ -52,9 +52,6 @@ public class VideoAnalysisService {
         videoResultRepository.saveAndFlush(video);
         enviarAtualizacaoVideo(video);
         
-        // Create a final reference to the video object for use in lambda
-        final VideoResult finalVideo = video;
-        
         // Agenda a análise para ser executada após o tempo de processamento
         scheduler.schedule(() -> {
             try {

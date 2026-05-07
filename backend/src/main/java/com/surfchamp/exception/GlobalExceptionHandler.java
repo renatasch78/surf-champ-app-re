@@ -1,6 +1,5 @@
 package com.surfchamp.exception;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
@@ -18,7 +17,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,6 +1,5 @@
 package com.surfchamp.controller;
 
-import com.surfchamp.dto.AuthResponse;
 import com.surfchamp.dto.LoginRequest;
 import com.surfchamp.dto.RegisterRequest;
 import com.surfchamp.service.UserService;
