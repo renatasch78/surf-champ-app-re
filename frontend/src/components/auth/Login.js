@@ -75,6 +75,9 @@ const Login = () => {
           <Typography component="h1" variant="h5" align="center" gutterBottom>
             Surf Champ - Login
           </Typography>
+          <Typography variant="body2" align="center" sx={{ mb: 2 }}>
+            renata teste
+          </Typography>
           
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
