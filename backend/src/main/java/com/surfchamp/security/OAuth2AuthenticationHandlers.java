@@ -1,5 +1,6 @@
 package com.surfchamp.security;
 
+import com.surfchamp.controller.AuthController;
 import com.surfchamp.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +37,19 @@ public class OAuth2AuthenticationHandlers implements AuthenticationSuccessHandle
         String email = oauth2User.getAttribute("email");
 
         String token = userService.loginOrRegisterWithGoogle(email);
-        String redirect = frontendCallbackUrl + "?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
+        String callback = frontendCallbackUrl;
+        Object sessionRedirect = request.getSession(false) != null
+            ? request.getSession(false).getAttribute(AuthController.OAUTH2_REDIRECT_SESSION_KEY)
+            : null;
+        if (sessionRedirect instanceof String redirectFromSession && !redirectFromSession.isBlank()) {
+            callback = redirectFromSession;
+        }
+
+        if (request.getSession(false) != null) {
+            request.getSession(false).removeAttribute(AuthController.OAUTH2_REDIRECT_SESSION_KEY);
+        }
+
+        String redirect = callback + "?token=" + URLEncoder.encode(token, StandardCharsets.UTF_8);
         response.sendRedirect(redirect);
     }
 
@@ -46,7 +59,19 @@ public class OAuth2AuthenticationHandlers implements AuthenticationSuccessHandle
         HttpServletResponse response,
         org.springframework.security.core.AuthenticationException exception
     ) throws IOException, ServletException {
-        String redirect = frontendCallbackUrl + "?error=" +
+        String callback = frontendCallbackUrl;
+        Object sessionRedirect = request.getSession(false) != null
+            ? request.getSession(false).getAttribute(AuthController.OAUTH2_REDIRECT_SESSION_KEY)
+            : null;
+        if (sessionRedirect instanceof String redirectFromSession && !redirectFromSession.isBlank()) {
+            callback = redirectFromSession;
+        }
+
+        if (request.getSession(false) != null) {
+            request.getSession(false).removeAttribute(AuthController.OAUTH2_REDIRECT_SESSION_KEY);
+        }
+
+        String redirect = callback + "?error=" +
             URLEncoder.encode("google_auth_failed", StandardCharsets.UTF_8);
         response.sendRedirect(redirect);
     }

@@ -42,7 +42,8 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = API_ENDPOINTS.GOOGLE_LOGIN;
+    const redirectUri = `${window.location.origin}/login`;
+    window.location.href = `${API_ENDPOINTS.GOOGLE_LOGIN}?redirect_uri=${encodeURIComponent(redirectUri)}`;
   };
 
   const handleSubmit = async (e) => {

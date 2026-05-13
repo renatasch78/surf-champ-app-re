@@ -6,17 +6,26 @@ import com.surfchamp.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    public static final String OAUTH2_REDIRECT_SESSION_KEY = "oauth2_redirect_uri";
 
     private final UserService userService;
+    
+    @Value("${app.auth.allowed-frontend-origins:http://localhost:3000,http://localhost:3001}")
+    private String[] allowedFrontendOrigins;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -26,6 +35,39 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody RegisterRequest req) {
         userService.register(req);
         return ResponseEntity.ok().body("User registered");
+    }
+
+    @GetMapping("/google/start")
+    public void startGoogleLogin(
+        @RequestParam(name = "redirect_uri", required = false) String redirectUri,
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws java.io.IOException {
+        HttpSession session = request.getSession(true);
+        String safeRedirect = resolveSafeRedirectUri(redirectUri);
+        session.setAttribute(OAUTH2_REDIRECT_SESSION_KEY, safeRedirect);
+        response.sendRedirect("/oauth2/authorization/google");
+    }
+
+    private String resolveSafeRedirectUri(String requestedRedirect) {
+        if (requestedRedirect == null || requestedRedirect.isBlank()) {
+            return null;
+        }
+
+        try {
+            java.net.URI uri = java.net.URI.create(requestedRedirect);
+            String origin = uri.getScheme() + "://" + uri.getAuthority();
+            Set<String> allowed = java.util.Arrays.stream(allowedFrontendOrigins)
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(java.util.stream.Collectors.toSet());
+            if (allowed.contains(origin)) {
+                return requestedRedirect;
+            }
+        } catch (Exception ignored) {
+        }
+
+        return null;
     }
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
