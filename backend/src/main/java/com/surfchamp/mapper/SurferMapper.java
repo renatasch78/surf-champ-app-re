@@ -28,6 +28,7 @@ public interface SurferMapper {
     @Mapping(target = "emergencyContact", source = "emergencyContact")
     @Mapping(target = "sponsors", source = "sponsors")
     @Mapping(target = "isActive", source = "active")
+    @Mapping(target = "createdAt", source = "createdAt")
     SurferDTO toDTO(Surfer surfer);
     
     @Mapping(target = "id", source = "id")

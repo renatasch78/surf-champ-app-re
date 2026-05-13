@@ -26,13 +26,19 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
+    private final OAuth2AuthenticationHandlers oAuth2AuthenticationHandlers;
 
     @Value("${app.cors.allowed-origin-patterns:http://localhost:3000,http://localhost:3001,http://localhost:4200}")
     private String[] allowedOriginPatterns;
 
-    public SecurityConfig(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfig(
+        JwtUtil jwtUtil,
+        UserDetailsServiceImpl userDetailsService,
+        OAuth2AuthenticationHandlers oAuth2AuthenticationHandlers
+    ) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.oAuth2AuthenticationHandlers = oAuth2AuthenticationHandlers;
     }
 
     @Bean
@@ -47,7 +53,11 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .successHandler(oAuth2AuthenticationHandlers)
+                .failureHandler(oAuth2AuthenticationHandlers)
             )
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(requestResponseLoggingFilter, JwtAuthenticationFilter.class)
@@ -55,6 +65,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
                     "/api/auth/**",
+                    "/oauth2/**",
+                    "/login/oauth2/**",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
@@ -72,8 +84,17 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList(allowedOriginPatterns));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList(
+            "Authorization",
+            "Content-Type",
+            "Content-Disposition",
+            "X-Requested-With",
+            "Accept",
+            "Origin",
+            "Access-Control-Request-Method",
+            "Access-Control-Request-Headers"
+        ));
         configuration.setExposedHeaders(Arrays.asList(
             "Authorization",
             "Content-Disposition",

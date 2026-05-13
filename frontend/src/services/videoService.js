@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { API_ENDPOINTS } from '../config';
-import { toast } from 'react-toastify';
 import { getAuthToken } from '../utils/auth';
 
 const getAuthHeader = () => ({

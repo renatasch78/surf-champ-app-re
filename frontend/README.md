@@ -2,6 +2,16 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deploy na Vercel com backend no Render
+
+1. Na Vercel, configure o Root Directory como `frontend`.
+2. Em `Environment Variables`, adicione:
+   - `REACT_APP_API_BASE_URL=https://SEU-BACKEND.onrender.com`
+3. Faça o deploy (Build Command: `npm run build`, Output: `build`).
+4. No Render (backend), configure a variável:
+   - `APP_CORS_ALLOWED_ORIGIN_PATTERNS=https://SEU-FRONTEND.vercel.app,https://*.vercel.app`
+5. Redeploy do backend no Render para aplicar o CORS.
+
 ## Available Scripts
 
 In the project directory, you can run:
