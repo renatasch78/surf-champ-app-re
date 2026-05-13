@@ -14,6 +14,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -56,6 +57,8 @@ public class SurferDTO {
 
     @Pattern(regexp = "\\d{11}", message = "CPF inválido")
     private String cpf;
+
+    private LocalDateTime createdAt;
 
     // Explicit getters to resolve Lombok processing issues
     public String getEmail() {
@@ -144,6 +147,14 @@ public class SurferDTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public AddressDTO getAddress() {
