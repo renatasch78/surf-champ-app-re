@@ -76,7 +76,7 @@ const Login = () => {
             Surf Champ - Login
           </Typography>
           <Typography variant="body2" align="center" sx={{ mb: 2 }}>
-            Teste de push na branch vercel
+            Teste de push na branch vercel - Daniel
           </Typography>
           
           {error && (
