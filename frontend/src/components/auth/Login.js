@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { API_ENDPOINTS, setAuthToken } from '../../config';
 import axios from 'axios';
@@ -17,11 +17,32 @@ const Login = () => {
   const { login } = useAuth();
   const from = location.state?.from?.pathname || '/';
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tokenFromGoogle = params.get('token');
+    const errorFromGoogle = params.get('error');
+
+    if (tokenFromGoogle) {
+      setAuthToken(tokenFromGoogle);
+      login(tokenFromGoogle);
+      navigate(from, { replace: true });
+      return;
+    }
+
+    if (errorFromGoogle) {
+      setError('Falha ao autenticar com Google. Tente novamente.');
+    }
+  }, [location.search, login, navigate, from]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = API_ENDPOINTS.GOOGLE_LOGIN;
   };
 
   const handleSubmit = async (e) => {
@@ -118,6 +139,14 @@ const Login = () => {
               disabled={loading}
             >
               {loading ? 'Entrando...' : 'Entrar'}
+            </Button>
+            <Button
+              fullWidth
+              variant="outlined"
+              sx={{ mb: 2 }}
+              onClick={handleGoogleLogin}
+            >
+              Entrar com Google
             </Button>
             <Button
               fullWidth
