@@ -29,6 +29,9 @@ public class SecurityConfig {
     @Value("${app.cors.allowed-origin-patterns:http://localhost:3000,http://localhost:3001,http://localhost:4200}")
     private String[] allowedOriginPatterns;
 
+    @Value("${app.auth.google.enabled:false}")
+    private boolean googleAuthEnabled;
+
     public SecurityConfig(
         JwtUtil jwtUtil,
         UserDetailsServiceImpl userDetailsService,
@@ -52,30 +55,38 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-            )
-            .oauth2Login(oauth2 -> oauth2
+            );
+
+        if (googleAuthEnabled) {
+            http.oauth2Login(oauth2 -> oauth2
                 .successHandler(oAuth2AuthenticationHandlers)
                 .failureHandler(oAuth2AuthenticationHandlers)
-            )
+            );
+        }
+
+        var authConfig = http
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(requestResponseLoggingFilter, JwtAuthenticationFilter.class)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                auth.requestMatchers(
                     "/api/auth/**",
-                    "/oauth2/**",
-                    "/login/oauth2/**",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/error",
                     "/ws/**",
                     "/api/videos/stream/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            );
+                ).permitAll();
 
-        return http.build();
+                if (googleAuthEnabled) {
+                    auth.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll();
+                }
+
+                auth.anyRequest().authenticated();
+            });
+
+        return authConfig.build();
     }
 
     @Bean
