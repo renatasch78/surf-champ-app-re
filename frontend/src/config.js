@@ -4,6 +4,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:808
 
 export const API_ENDPOINTS = {
   LOGIN: `${API_BASE_URL}/api/auth/login`,
+  GOOGLE_LOGIN: `${API_BASE_URL}/api/auth/google/start`,
   REGISTER: `${API_BASE_URL}/api/auth/register`,
   UPLOAD_VIDEO: `${API_BASE_URL}/api/videos/upload`,
   RECENT_VIDEOS: `${API_BASE_URL}/api/videos/recent`,

@@ -98,6 +98,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         logger.debug("Verificando se o caminho é público: {}", path);
         
         boolean isPublic = path.startsWith("/api/auth/") || 
+               path.startsWith("/oauth2/") ||
+               path.startsWith("/login/oauth2/") ||
                path.startsWith("/v3/api-docs") || 
                path.startsWith("/swagger-ui") ||
                path.startsWith("/swagger-ui.html") ||

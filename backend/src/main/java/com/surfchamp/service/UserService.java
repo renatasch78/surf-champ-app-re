@@ -5,6 +5,7 @@ import com.surfchamp.dto.RegisterRequest;
 import com.surfchamp.model.User;
 import com.surfchamp.repository.UserRepository;
 import com.surfchamp.security.JwtUtil;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,5 +85,22 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
         return userRepository.save(user);
+    }
+
+    public String loginOrRegisterWithGoogle(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new RuntimeException("Google account email is required");
+        }
+
+        User user = userRepository.findByUsername(email)
+            .orElseGet(() -> {
+                User newUser = new User();
+                newUser.setUsername(email);
+                newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+                newUser.setRole("SURFER");
+                return userRepository.save(newUser);
+            });
+
+        return jwtUtil.generateToken(user);
     }
 }

@@ -10,8 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,13 +24,22 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
+    private final OAuth2AuthenticationHandlers oAuth2AuthenticationHandlers;
 
     @Value("${app.cors.allowed-origin-patterns:http://localhost:3000,http://localhost:3001,http://localhost:4200}")
     private String[] allowedOriginPatterns;
 
-    public SecurityConfig(JwtUtil jwtUtil, UserDetailsServiceImpl userDetailsService) {
+    @Value("${app.auth.google.enabled:false}")
+    private boolean googleAuthEnabled;
+
+    public SecurityConfig(
+        JwtUtil jwtUtil,
+        UserDetailsServiceImpl userDetailsService,
+        OAuth2AuthenticationHandlers oAuth2AuthenticationHandlers
+    ) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
+        this.oAuth2AuthenticationHandlers = oAuth2AuthenticationHandlers;
     }
 
     @Bean
@@ -47,13 +54,22 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+            );
+
+        if (googleAuthEnabled) {
+            http.oauth2Login(oauth2 -> oauth2
+                .successHandler(oAuth2AuthenticationHandlers)
+                .failureHandler(oAuth2AuthenticationHandlers)
+            );
+        }
+
+        var authConfig = http
             .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(requestResponseLoggingFilter, JwtAuthenticationFilter.class)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(
+            .authorizeHttpRequests(auth -> {
+                auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                auth.requestMatchers(
                     "/api/auth/**",
                     "/v3/api-docs/**",
                     "/swagger-ui/**",
@@ -61,11 +77,16 @@ public class SecurityConfig {
                     "/error",
                     "/ws/**",
                     "/api/videos/stream/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            );
+                ).permitAll();
 
-        return http.build();
+                if (googleAuthEnabled) {
+                    auth.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll();
+                }
+
+                auth.anyRequest().authenticated();
+            });
+
+        return authConfig.build();
     }
 
     @Bean
@@ -99,8 +120,4 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

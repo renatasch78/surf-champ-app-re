@@ -62,6 +62,11 @@ public class RateLimitFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         
         try {
+            if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             // Only apply rate limiting to protected paths
             if (isProtectedPath(path)) {
                 // Get client IP or session ID for rate limiting
@@ -109,7 +114,9 @@ public class RateLimitFilter extends OncePerRequestFilter {
         
         response.addHeader(RATE_LIMIT_HEADER, 
             String.valueOf(probe.getRemainingTokens() + 1)); // +1 because we just tried to consume a token
+        response.addHeader(RATE_LIMIT_REMAINING, String.valueOf(probe.getRemainingTokens()));
         response.addHeader(RATE_LIMIT_RESET, String.valueOf(waitTime));
+        response.addHeader("Retry-After", String.valueOf(waitTime));
         response.setContentType("application/json");
         response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
         response.getWriter().write(
